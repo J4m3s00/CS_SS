@@ -3,7 +3,17 @@
 const auto CLASS_NAME = "CSSS Window Class";
 static Window* sInstance;
 
+LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
+{
+	switch (msg)
+	{
+	case WM_CLOSE:
+		PostQuitMessage(0);
+		break;
+	}
 
+	return DefWindowProc(hWnd, msg, wParam, lParam);
+}
 
 Window::Window(unsigned int width, unsigned int height, const std::string& title)
 	: fWidth(width), fHeight(height), fTitle(title)
@@ -23,7 +33,7 @@ bool Window::Create(HINSTANCE hInstance)
 
 	wc.cbSize = sizeof(wc);
 	wc.style = CS_OWNDC;
-	wc.lpfnWndProc = DefWindowProc;
+	wc.lpfnWndProc = WndProc;
 	wc.cbClsExtra = 0;
 	wc.cbWndExtra = 0;
 	wc.hInstance = hInstance;

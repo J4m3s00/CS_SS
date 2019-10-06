@@ -7,7 +7,13 @@ int CALLBACK WinMain(_In_ HINSTANCE hInstace, _In_opt_ HINSTANCE hPrevInstace, _
 
 	window->Create(hInstace);
 
-	while (true) {}
+	MSG msg;
+	BOOL gResult;
+	while (( gResult = GetMessage(&msg, nullptr, 0, 0)) > 0)
+	{
+		TranslateMessage(&msg);
+		DispatchMessageA(&msg);
+	};
 
-	return 0;
+	return msg.wParam;
 }
