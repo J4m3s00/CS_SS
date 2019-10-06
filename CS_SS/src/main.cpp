@@ -1,7 +1,17 @@
+#include "prefix.h"
 #include <iostream>
 
-int main(int argc, char** argv)
+int CALLBACK WinMain(_In_ HINSTANCE hInstace, _In_opt_ HINSTANCE hPrevInstace, _In_ LPSTR lpCmdLine, _In_ int nCmdShow)
 {
-	std::cout << "Hello World" << std::endl;
-	return 0;
+	Window* window = new Window(1270, 720, "Hello World");
+
+	MSG msg;
+	BOOL gResult;
+	while (( gResult = GetMessage(&msg, nullptr, 0, 0)) > 0)
+	{
+		TranslateMessage(&msg);
+		DispatchMessageA(&msg);
+	};
+
+	return msg.wParam;
 }
