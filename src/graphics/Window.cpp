@@ -1,4 +1,4 @@
-#include "../prefix.h"
+#include <prefix.h>
 
 Window::WindowClass Window::WindowClass::sWndClass;
 
@@ -47,9 +47,12 @@ Window::Window(unsigned int width, unsigned int height, const std::string& title
 	wr.top = 0;
 	wr.left = height;
 	AdjustWindowRectEx(&wr, WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU, FALSE, 0);
+	
 
 	fHwnd = CreateWindowEx(0, WindowClass::GetName(), "", WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU,
 		CW_USEDEFAULT, CW_USEDEFAULT, fWidth, fHeight, nullptr, nullptr, WindowClass::GetInstance(), nullptr);
+
+	DXContext::Init(*this);
 
 	ShowWindow(fHwnd, SW_SHOW);
 }
