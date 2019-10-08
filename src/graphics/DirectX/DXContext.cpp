@@ -50,10 +50,17 @@ void DXContext::Init(const Window& wnd)
 
 	viewport.TopLeftX = 0; 
 	viewport.TopLeftY = 0;
-	viewport.Width = wnd.GetWidth();
-	viewport.Height = wnd.GetHeight();
+	viewport.Width = (FLOAT) wnd.GetWidth();
+	viewport.Height = (FLOAT) wnd.GetHeight();
 
 	sInstance.fpDeviceContext->RSSetViewports(1, &viewport);
+}
+
+void DXContext::DrawInstanced(UINT vertexCount, UINT startOffset, D3D11_PRIMITIVE_TOPOLOGY topology)
+{
+	fpDeviceContext->IASetPrimitiveTopology(D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+	fpDeviceContext->Draw(3, 0);
 }
 
 void DXContext::Clear(const D3DXCOLOR& color)

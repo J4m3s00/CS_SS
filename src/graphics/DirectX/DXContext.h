@@ -8,6 +8,8 @@ public:
 	DXContext(const DXContext&) = delete;
 	DXContext& operator=(const DXContext&) = delete;
 
+	void DrawInstanced(UINT vertexCount, UINT startOffset = 0, D3D11_PRIMITIVE_TOPOLOGY topology = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
 	void Clear(const D3DXCOLOR& color = D3DXCOLOR(0.5f, 0.7f, 0.74f, 1.0f));
 	void Present();
 
