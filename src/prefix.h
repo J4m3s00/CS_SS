@@ -9,4 +9,5 @@
 
 #include "graphics/Window.h"
 #include "graphics/DirectX/DXContext.h"
+#include "graphics/DirectX/DXBuffer.h"
 #include "shader/Shader.h"

@@ -144,6 +144,7 @@
     </FxCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\graphics\DirectX\DXBuffer.cpp" />
     <ClCompile Include="src\graphics\DirectX\DXContext.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\graphics\Window.cpp" />
@@ -154,6 +155,7 @@
     <ClCompile Include="src\shader\Shader.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\graphics\DirectX\DXBuffer.h" />
     <ClInclude Include="src\graphics\DirectX\DXContext.h" />
     <ClInclude Include="src\graphics\Window.h" />
     <ClInclude Include="src\prefix.h" />

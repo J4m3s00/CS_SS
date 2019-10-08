@@ -13,20 +13,6 @@ int CALLBACK WinMain(_In_ HINSTANCE hInstace, _In_opt_ HINSTANCE hPrevInstace, _
 {
 	Window* window = new Window(1270, 720, "Hello World");
 
-	//Init Shader
-	/*ID3D10Blob* VS, * PS;
-	D3DX11CompileFromFile("src/shader/Basic.hlsl", 0, 0, "VShader", "vs_4_0", 0, 0, 0, &VS, 0, 0);
-	D3DX11CompileFromFile("src/shader/Basic.hlsl", 0, 0, "PShader", "ps_4_0", 0, 0, 0, &PS, 0, 0);
-
-	//Global
-	ID3D11VertexShader* pVS; 
-	ID3D11PixelShader* pPS;
-
-	//Initilization
-
-	device->CreateVertexShader(VS->GetBufferPointer(), VS->GetBufferSize(), NULL, &pVS);
-	device->CreatePixelShader(PS->GetBufferPointer(), PS->GetBufferSize(), NULL, &pPS);
-	*/
 	auto device = DXContext::sInstance.GetDevice();
 	auto devcon = DXContext::sInstance.GetDeviceContext();
 
@@ -56,18 +42,7 @@ int CALLBACK WinMain(_In_ HINSTANCE hInstace, _In_opt_ HINSTANCE hPrevInstace, _
 		{ 0.5f, -0.5f, 0.0f, D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f)},
 	};
 
-	//Global
-	ID3D11Buffer* pVBuffer;
-
-	D3D11_BUFFER_DESC bd = {};
-	bd.Usage = D3D11_USAGE_DYNAMIC;
-	bd.ByteWidth = sizeof(vertices);
-	bd.BindFlags = D3D11_BIND_VERTEX_BUFFER;
-	bd.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
-
-	D3D11_SUBRESOURCE_DATA ms;
-	ms.pSysMem = vertices;
-	device->CreateBuffer(&bd, &ms, &pVBuffer);
+	DXBuffer vertexBuffer(BUFFER_TYPE_VERTEX_BUFFER, vertices, sizeof(Vertex), sizeof(vertices) / sizeof(Vertex));
 
 
 	MSG msg;
@@ -92,13 +67,10 @@ int CALLBACK WinMain(_In_ HINSTANCE hInstace, _In_opt_ HINSTANCE hPrevInstace, _
 			pixelShader.Bind();
 
 			devcon->IASetInputLayout(pLayout); 
-
+			vertexBuffer.Bind();
 
 
 			//Mesh
-			UINT stride = sizeof(Vertex);
-			UINT offset = 0;
-			devcon->IASetVertexBuffers(0, 1, &pVBuffer, &stride, &offset);
 
 			///////////////////////////////////////////////////////////////
 
