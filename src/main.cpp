@@ -22,11 +22,15 @@ int CALLBACK WinMain(_In_ HINSTANCE hInstace, _In_opt_ HINSTANCE hPrevInstace, _
 	ID3D11VertexShader* pVS; 
 	ID3D11PixelShader* pPS;
 
+	//Initilization
+
 	auto device = DXContext::sInstance.GetDevice();
 	device->CreateVertexShader(VS->GetBufferPointer(), VS->GetBufferSize(), NULL, &pVS);
 	device->CreatePixelShader(PS->GetBufferPointer(), PS->GetBufferSize(), NULL, &pPS);
 
 	auto devcon = DXContext::sInstance.GetDeviceContext();
+
+	//Bind method
 	devcon->VSSetShader(pVS, 0, 0);
 	devcon->PSSetShader(pPS, 0, 0);
 
@@ -36,12 +40,14 @@ int CALLBACK WinMain(_In_ HINSTANCE hInstace, _In_opt_ HINSTANCE hPrevInstace, _
 	//Global
 	ID3D11InputLayout* pLayout;
 
+	//Initialization
 	D3D11_INPUT_ELEMENT_DESC inputDescription[] =
 	{
 		{"POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0},
 		{"COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 3 * sizeof(float), D3D11_INPUT_PER_VERTEX_DATA, 0}
 	};
 	device->CreateInputLayout(inputDescription, 2, VS->GetBufferPointer(), VS->GetBufferSize(), &pLayout);
+	//Bind method
 	devcon->IASetInputLayout(pLayout);
 
 
@@ -88,9 +94,7 @@ int CALLBACK WinMain(_In_ HINSTANCE hInstace, _In_opt_ HINSTANCE hPrevInstace, _
 			UINT offset = 0;
 			devcon->IASetVertexBuffers(0, 1, &pVBuffer, &stride, &offset);
 
-			devcon->IASetPrimitiveTopology(D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-
-			devcon->Draw(3, 0);
+			DXContext::sInstance.DrawInstanced(3);
 
 			DXContext::sInstance.Present();
 		}
