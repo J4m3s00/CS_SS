@@ -14,7 +14,7 @@ int CALLBACK WinMain(_In_ HINSTANCE hInstace, _In_opt_ HINSTANCE hPrevInstace, _
 	Window* window = new Window(1270, 720, "Hello World");
 
 	//Init Shader
-	ID3D10Blob* VS, * PS;
+	/*ID3D10Blob* VS, * PS;
 	D3DX11CompileFromFile("src/shader/Basic.hlsl", 0, 0, "VShader", "vs_4_0", 0, 0, 0, &VS, 0, 0);
 	D3DX11CompileFromFile("src/shader/Basic.hlsl", 0, 0, "PShader", "ps_4_0", 0, 0, 0, &PS, 0, 0);
 
@@ -24,16 +24,14 @@ int CALLBACK WinMain(_In_ HINSTANCE hInstace, _In_opt_ HINSTANCE hPrevInstace, _
 
 	//Initilization
 
-	auto device = DXContext::sInstance.GetDevice();
 	device->CreateVertexShader(VS->GetBufferPointer(), VS->GetBufferSize(), NULL, &pVS);
 	device->CreatePixelShader(PS->GetBufferPointer(), PS->GetBufferSize(), NULL, &pPS);
-
+	*/
+	auto device = DXContext::sInstance.GetDevice();
 	auto devcon = DXContext::sInstance.GetDeviceContext();
 
-	//Bind method
-	devcon->VSSetShader(pVS, 0, 0);
-	devcon->PSSetShader(pPS, 0, 0);
-
+	Shader<ID3D11VertexShader> vertexShader("src/shader/Basic.hlsl");
+	Shader<ID3D11PixelShader> pixelShader("src/shader/Basic.hlsl");
 
 
 	//Input Layout
@@ -46,9 +44,8 @@ int CALLBACK WinMain(_In_ HINSTANCE hInstace, _In_opt_ HINSTANCE hPrevInstace, _
 		{"POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0},
 		{"COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 3 * sizeof(float), D3D11_INPUT_PER_VERTEX_DATA, 0}
 	};
-	device->CreateInputLayout(inputDescription, 2, VS->GetBufferPointer(), VS->GetBufferSize(), &pLayout);
+	device->CreateInputLayout(inputDescription, 2, vertexShader.GetBlob()->GetBufferPointer(), vertexShader.GetBlob()->GetBufferSize(), &pLayout);
 	//Bind method
-	devcon->IASetInputLayout(pLayout);
 
 
 	//Init VBO
@@ -68,12 +65,9 @@ int CALLBACK WinMain(_In_ HINSTANCE hInstace, _In_opt_ HINSTANCE hPrevInstace, _
 	bd.BindFlags = D3D11_BIND_VERTEX_BUFFER;
 	bd.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
 
-	device->CreateBuffer(&bd, NULL, &pVBuffer);
-
-	D3D11_MAPPED_SUBRESOURCE ms;
-	devcon->Map(pVBuffer, NULL, D3D11_MAP_WRITE_DISCARD, NULL, &ms);
-	memcpy(ms.pData, vertices, sizeof(vertices));
-	devcon->Unmap(pVBuffer, NULL);
+	D3D11_SUBRESOURCE_DATA ms;
+	ms.pSysMem = vertices;
+	device->CreateBuffer(&bd, &ms, &pVBuffer);
 
 
 	MSG msg;
@@ -90,18 +84,29 @@ int CALLBACK WinMain(_In_ HINSTANCE hInstace, _In_opt_ HINSTANCE hPrevInstace, _
 		{
 			DXContext::sInstance.Clear();
 
+
+			//Bind method
+			///////////////////////////////////////////////////////////////
+			//Material
+			vertexShader.Bind();
+			pixelShader.Bind();
+
+			devcon->IASetInputLayout(pLayout); 
+
+
+
+			//Mesh
 			UINT stride = sizeof(Vertex);
 			UINT offset = 0;
 			devcon->IASetVertexBuffers(0, 1, &pVBuffer, &stride, &offset);
+
+			///////////////////////////////////////////////////////////////
 
 			DXContext::sInstance.DrawInstanced(3);
 
 			DXContext::sInstance.Present();
 		}
 	}
-
-	pVS->Release();
-	pPS->Release();
 
 	return msg.wParam;
 }
