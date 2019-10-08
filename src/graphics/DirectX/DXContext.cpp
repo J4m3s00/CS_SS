@@ -50,8 +50,8 @@ void DXContext::Init(const Window& wnd)
 
 	viewport.TopLeftX = 0; 
 	viewport.TopLeftY = 0;
-	viewport.Width = wnd.GetWidth();
-	viewport.Height = wnd.GetHeight();
+	viewport.Width = (FLOAT) wnd.GetWidth();
+	viewport.Height = (FLOAT) wnd.GetHeight();
 
 	sInstance.fpDeviceContext->RSSetViewports(1, &viewport);
 }
