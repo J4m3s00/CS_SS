@@ -4,11 +4,23 @@ struct VOut
 	float4 color : COLOR;
 };
 
+cbuffer CBuf
+{
+	matrix projection;
+};
+
+static matrix identity = {
+	{ 1, 0, 0, 0 },
+	{ 0, 1, 0, 0 },
+	{ 0, 0, 1, 0 },
+	{ 0, 0, 0, 1 }
+};
+
 VOut VShader(float4 position : POSITION, float4 color : COLOR)
 {
 	VOut output;
 
-	output.position = position;
+	output.position = mul(position, projection);
 	output.color = color;
 
 	return output;

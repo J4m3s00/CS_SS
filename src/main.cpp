@@ -13,15 +13,14 @@ int CALLBACK WinMain(_In_ HINSTANCE hInstace, _In_opt_ HINSTANCE hPrevInstace, _
 {
 	Window* window = new Window(1270, 720, "Hello World");
 
-	Shader<ID3D11VertexShader> vertexShader("src/shader/Basic.hlsl");
-	Shader<ID3D11PixelShader> pixelShader("src/shader/Basic.hlsl");
+	Material mat("Basic");
 
 
 	Vertex vertices[] =
 	{
-		{-0.5f, -0.5f, 0.0f, D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f)},
-		{ 0.0f,  0.5f, 0.0f, D3DXCOLOR(0.0f, 1.0f, 0.0f, 1.0f)},
-		{ 0.5f, -0.5f, 0.0f, D3DXCOLOR(0.0f, 0.0f, 1.0f, 1.0f)},
+		{-0.5f, -0.5f, 1.0f, D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f)},
+		{ 0.0f,  0.5f, 1.0f, D3DXCOLOR(0.0f, 1.0f, 0.0f, 1.0f)},
+		{ 0.5f, -0.5f, 1.0f, D3DXCOLOR(0.0f, 0.0f, 1.0f, 1.0f)},
 	};
 
 	DXBuffer vertexBuffer(BUFFER_TYPE_VERTEX_BUFFER, vertices, sizeof(Vertex), sizeof(vertices) / sizeof(Vertex));
@@ -45,8 +44,7 @@ int CALLBACK WinMain(_In_ HINSTANCE hInstace, _In_opt_ HINSTANCE hPrevInstace, _
 			//Bind method
 			///////////////////////////////////////////////////////////////
 			//Material
-			vertexShader.Bind();
-			pixelShader.Bind();
+			mat.Bind();
 
 			vertexBuffer.Bind();
 
