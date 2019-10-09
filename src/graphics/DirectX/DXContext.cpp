@@ -56,11 +56,18 @@ void DXContext::Init(const Window& wnd)
 	sInstance.fpDeviceContext->RSSetViewports(1, &viewport);
 }
 
-void DXContext::DrawInstanced(UINT vertexCount, UINT startOffset, D3D11_PRIMITIVE_TOPOLOGY topology)
+void DXContext::Draw(UINT vertexCount, UINT startOffset, D3D11_PRIMITIVE_TOPOLOGY topology)
 {
-	fpDeviceContext->IASetPrimitiveTopology(D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	fpDeviceContext->IASetPrimitiveTopology(topology);
 
-	fpDeviceContext->Draw(3, 0);
+	fpDeviceContext->Draw(vertexCount, startOffset);
+}
+
+void DXContext::DrawIndexed(UINT indexCount, UINT startOffset, D3D11_PRIMITIVE_TOPOLOGY topology)
+{
+	fpDeviceContext->IASetPrimitiveTopology(topology);
+
+	fpDeviceContext->DrawIndexed(indexCount, startOffset, 0);
 }
 
 void DXContext::Clear(const D3DXCOLOR& color)

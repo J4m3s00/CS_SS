@@ -51,8 +51,12 @@ void DXBuffer::Bind()
 	{
 		DXContext::sInstance.GetDeviceContext()->VSSetConstantBuffers(0u, 1u, &fpBuffer);
 	}
-	else
+	else if (fType == BUFFER_TYPE_VERTEX_BUFFER)
 	{
 		DXContext::sInstance.GetDeviceContext()->IASetVertexBuffers(0, 1, &fpBuffer, &fElementSize, &offset);
+	}
+	else if (fType == BUFFER_TYPE_INDEX_BUFFER)
+	{
+		DXContext::sInstance.GetDeviceContext()->IASetIndexBuffer(fpBuffer, DXGI_FORMAT_R32_UINT, 0);
 	}
 }

@@ -13,17 +13,25 @@ int CALLBACK WinMain(_In_ HINSTANCE hInstace, _In_opt_ HINSTANCE hPrevInstace, _
 {
 	Window* window = new Window(1270, 720, "Hello World");
 
-	Material mat("Basic");
+	MaterialBasic mat;
 
 
 	Vertex vertices[] =
 	{
 		{-0.5f, -0.5f, 1.0f, D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f)},
-		{ 0.0f,  0.5f, 1.0f, D3DXCOLOR(0.0f, 1.0f, 0.0f, 1.0f)},
+		{-0.5f,  0.5f, 1.0f, D3DXCOLOR(0.0f, 1.0f, 0.0f, 1.0f)},
+		{ 0.5f,  0.5f, 1.0f, D3DXCOLOR(0.0f, 0.0f, 1.0f, 1.0f)},
 		{ 0.5f, -0.5f, 1.0f, D3DXCOLOR(0.0f, 0.0f, 1.0f, 1.0f)},
 	};
 
+	UINT indices[] =
+	{
+		0, 1, 2,
+		2, 3, 0,
+	};
+
 	DXBuffer vertexBuffer(BUFFER_TYPE_VERTEX_BUFFER, vertices, sizeof(Vertex), sizeof(vertices) / sizeof(Vertex));
+	DXBuffer indexBuffer(BUFFER_TYPE_INDEX_BUFFER, indices, sizeof(UINT), sizeof(indices) / sizeof(UINT));
 
 
 	MSG msg;
@@ -46,14 +54,14 @@ int CALLBACK WinMain(_In_ HINSTANCE hInstace, _In_opt_ HINSTANCE hPrevInstace, _
 			//Material
 			mat.Bind();
 
+			indexBuffer.Bind();
 			vertexBuffer.Bind();
-
 
 			//Mesh
 
 			///////////////////////////////////////////////////////////////
 
-			DXContext::sInstance.DrawInstanced(3);
+			DXContext::sInstance.DrawIndexed(6);
 
 			DXContext::sInstance.Present();
 		}
