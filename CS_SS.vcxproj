@@ -146,19 +146,23 @@
   <ItemGroup>
     <ClCompile Include="src\graphics\DirectX\DXBuffer.cpp" />
     <ClCompile Include="src\graphics\DirectX\DXContext.cpp" />
+    <ClCompile Include="src\graphics\Mesh.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\graphics\Window.cpp" />
     <ClCompile Include="src\prefix.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="src\shader\Material.cpp" />
     <ClCompile Include="src\shader\Shader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\graphics\DirectX\DXBuffer.h" />
     <ClInclude Include="src\graphics\DirectX\DXContext.h" />
+    <ClInclude Include="src\graphics\Mesh.h" />
     <ClInclude Include="src\graphics\Window.h" />
     <ClInclude Include="src\prefix.h" />
+    <ClInclude Include="src\shader\Material.h" />
     <ClInclude Include="src\shader\Shader.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
