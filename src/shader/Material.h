@@ -15,6 +15,7 @@ public:
 private:
 	DXBuffer* fpConstantBuffer;
 	ConstantBuffer* fpCbufData;
+	ID3D11InputLayout* fpLayout;
 
 	Shader<ID3D11VertexShader>* fpVertexShader;
 	Shader<ID3D11PixelShader>* fpPixelShader;
