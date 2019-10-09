@@ -1,13 +1,6 @@
 #include "prefix.h"
 #include <iostream>
 
-struct Vertex
-{
-	float x;
-	float y; 
-	float z;
-	D3DXCOLOR Color;
-};
 
 int CALLBACK WinMain(_In_ HINSTANCE hInstace, _In_opt_ HINSTANCE hPrevInstace, _In_ LPSTR lpCmdLine, _In_ int nCmdShow)
 {
@@ -16,23 +9,21 @@ int CALLBACK WinMain(_In_ HINSTANCE hInstace, _In_opt_ HINSTANCE hPrevInstace, _
 	MaterialBasic mat;
 
 
-	Vertex vertices[] =
+	std::vector<Mesh::Vertex> vertices =
 	{
-		{-0.5f, -0.5f, 1.0f, D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f)},
-		{-0.5f,  0.5f, 1.0f, D3DXCOLOR(0.0f, 1.0f, 0.0f, 1.0f)},
-		{ 0.5f,  0.5f, 1.0f, D3DXCOLOR(0.0f, 0.0f, 1.0f, 1.0f)},
-		{ 0.5f, -0.5f, 1.0f, D3DXCOLOR(0.0f, 0.0f, 1.0f, 1.0f)},
+		{-0.5f, -0.5f, 1.0f},
+		{-0.5f,  0.5f, 1.0f},
+		{ 0.5f,  0.5f, 1.0f},
+		{ 0.5f, -0.5f, 1.0f},
 	};
 
-	UINT indices[] =
+	std::vector<USHORT> indices =
 	{
 		0, 1, 2,
 		2, 3, 0,
 	};
 
-	DXBuffer vertexBuffer(BUFFER_TYPE_VERTEX_BUFFER, vertices, sizeof(Vertex), sizeof(vertices) / sizeof(Vertex));
-	DXBuffer indexBuffer(BUFFER_TYPE_INDEX_BUFFER, indices, sizeof(UINT), sizeof(indices) / sizeof(UINT));
-
+	Mesh m(vertices, indices);
 
 	MSG msg;
 	while (TRUE)
@@ -54,14 +45,7 @@ int CALLBACK WinMain(_In_ HINSTANCE hInstace, _In_opt_ HINSTANCE hPrevInstace, _
 			//Material
 			mat.Bind();
 
-			indexBuffer.Bind();
-			vertexBuffer.Bind();
-
-			//Mesh
-
-			///////////////////////////////////////////////////////////////
-
-			DXContext::sInstance.DrawIndexed(6);
+			m.Draw();
 
 			DXContext::sInstance.Present();
 		}

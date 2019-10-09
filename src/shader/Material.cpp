@@ -27,9 +27,12 @@ MaterialBasic::MaterialBasic()
 	D3D11_INPUT_ELEMENT_DESC inputDescription[] =
 	{
 		{"POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0},
-		{"COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 3 * sizeof(float), D3D11_INPUT_PER_VERTEX_DATA, 0}
+		{"TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 3 * sizeof(float), D3D11_INPUT_PER_VERTEX_DATA, 0},
+		{"NORMAL", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 3 * 2 * sizeof(float), D3D11_INPUT_PER_VERTEX_DATA, 0},
+		{"TANGENT", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 3 * 2 * 3 * sizeof(float), D3D11_INPUT_PER_VERTEX_DATA, 0},
+		{"BINORMAL", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 3 * 2 * 3 * 3 * sizeof(float), D3D11_INPUT_PER_VERTEX_DATA, 0},
 	};
-	DXContext::sInstance.GetDevice()->CreateInputLayout(inputDescription, 2, fpVertexShader->GetBlob()->GetBufferPointer(), fpVertexShader->GetBlob()->GetBufferSize(), &fpLayout);
+	DXContext::sInstance.GetDevice()->CreateInputLayout(inputDescription, 5, fpVertexShader->GetBlob()->GetBufferPointer(), fpVertexShader->GetBlob()->GetBufferSize(), &fpLayout);
 
 
 	fpCbufData = new ConstantBuffer();

@@ -16,6 +16,8 @@ public:
 	void UpdateData(const void* data, UINT elementSize, UINT count);
 
 	void Bind();
+
+	UINT GetCount() const { return fCount; }
 private:
 	BUFFER_TYPE fType;
 	ID3D11Buffer* fpBuffer;

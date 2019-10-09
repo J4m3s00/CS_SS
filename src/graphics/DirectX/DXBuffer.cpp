@@ -57,6 +57,8 @@ void DXBuffer::Bind()
 	}
 	else if (fType == BUFFER_TYPE_INDEX_BUFFER)
 	{
-		DXContext::sInstance.GetDeviceContext()->IASetIndexBuffer(fpBuffer, DXGI_FORMAT_R32_UINT, 0);
+		DXGI_FORMAT format = DXGI_FORMAT_R32_UINT;
+		if (fElementSize * 8 == 16) format = DXGI_FORMAT_R16_UINT;
+		DXContext::sInstance.GetDeviceContext()->IASetIndexBuffer(fpBuffer, format, 0);
 	}
 }

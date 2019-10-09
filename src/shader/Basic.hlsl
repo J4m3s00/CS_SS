@@ -9,19 +9,12 @@ cbuffer CBuf
 	matrix projection;
 };
 
-static matrix identity = {
-	{ 1, 0, 0, 0 },
-	{ 0, 1, 0, 0 },
-	{ 0, 0, 1, 0 },
-	{ 0, 0, 0, 1 }
-};
-
-VOut VShader(float4 position : POSITION, float4 color : COLOR)
+VOut VShader(float4 position : POSITION, float2 texCoord : TEXCOORD, float3 normal : NORMAL, float3 tangent : TANGENT, float3 binormal : BINORMAL)
 {
 	VOut output;
 
 	output.position = mul(position, projection);
-	output.color = color;
+	output.color = float4(0.8, 0.2, 0.3, 1.0);
 
 	return output;
 }
