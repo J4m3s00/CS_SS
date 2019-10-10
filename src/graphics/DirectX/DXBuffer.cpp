@@ -36,12 +36,16 @@ DXBuffer::~DXBuffer()
 
 void DXBuffer::UpdateData(const void* data, UINT elementSize, UINT count)
 {
-	if (sizeof(data) > (fCount * fElementSize))
+	if (sizeof(data) > (fCount * (size_t) fElementSize))
 	{
 		MessageBox(NULL, "Data size to big for the Buffer!", "Buffer ERROR!", MB_OK | MB_ICONEXCLAMATION);
 		return;
 	}
-	DXContext::sInstance.GetDeviceContext()->UpdateSubresource(fpBuffer, 0, NULL, data, 0, 0);
+	D3D11_MAPPED_SUBRESOURCE msr = {};
+
+	DXContext::sInstance.GetDeviceContext()->Map(fpBuffer, NULL, D3D11_MAP_WRITE_DISCARD, NULL, &msr);
+	memcpy(msr.pData, data, elementSize * (size_t) count);
+	DXContext::sInstance.GetDeviceContext()->Unmap(fpBuffer, NULL);
 }
 
 void DXBuffer::Bind()

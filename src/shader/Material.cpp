@@ -50,6 +50,7 @@ MaterialBasic::~MaterialBasic()
 
 void MaterialBasic::Bind() 
 {
+	fpConstantBuffer->UpdateData((const void*)fpCbufData, sizeof(ConstantBuffer), 1);
 	Material::Bind();
 	fpTexture->Bind();
 	DXContext::sInstance.GetDeviceContext()->IASetInputLayout(fpLayout);
