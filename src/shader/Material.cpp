@@ -39,6 +39,8 @@ MaterialBasic::MaterialBasic()
 	fpCbufData->fProjectionMatrix = DirectX::XMMatrixTranspose(DirectX::XMMatrixPerspectiveFovLH(60.0f, 16.0f / 9.0f, 0.00001f, 100000.0f));
 
 	fpConstantBuffer = new DXBuffer(BUFFER_TYPE_CONSTANT_BUFFER, (const void*)fpCbufData, sizeof(ConstantBuffer), 1);
+
+	fpTexture = new DXTexture("res/Test.png");
 }
 
 MaterialBasic::~MaterialBasic()
@@ -49,6 +51,7 @@ MaterialBasic::~MaterialBasic()
 void MaterialBasic::Bind() 
 {
 	Material::Bind();
+	fpTexture->Bind();
 	DXContext::sInstance.GetDeviceContext()->IASetInputLayout(fpLayout);
 
 	fpConstantBuffer->Bind();

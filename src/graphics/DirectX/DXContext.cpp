@@ -12,6 +12,8 @@ DXContext::~DXContext()
 	if (fpSwapChain) fpSwapChain->Release();
 	if (fpDevice) fpDevice->Release();
 	if (fpDeviceContext) fpDeviceContext->Release();
+	if (fpBackBuffer) fpBackBuffer->Release();
+	if (fpSampler) fpSampler->Release();
 }
 
 void DXContext::Init(const Window& wnd)
@@ -54,10 +56,19 @@ void DXContext::Init(const Window& wnd)
 	viewport.Height = (FLOAT) wnd.GetHeight();
 
 	sInstance.fpDeviceContext->RSSetViewports(1, &viewport);
+
+	D3D11_SAMPLER_DESC samplerDesc = {};
+	samplerDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
+	samplerDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
+	samplerDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
+	samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
+
+	sInstance.fpDevice->CreateSamplerState(&samplerDesc, &sInstance.fpSampler);
 }
 
 void DXContext::Draw(UINT vertexCount, UINT startOffset, D3D11_PRIMITIVE_TOPOLOGY topology)
 {
+	fpDeviceContext->PSSetSamplers(0, 1, &fpSampler);
 	fpDeviceContext->IASetPrimitiveTopology(topology);
 
 	fpDeviceContext->Draw(vertexCount, startOffset);

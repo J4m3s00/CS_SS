@@ -1,7 +1,7 @@
 struct VOut
 {
 	float4 position : SV_POSITION;
-	float4 color : COLOR;
+	float2 uv : TEXCOLOR;
 };
 
 cbuffer CBuf
@@ -14,13 +14,17 @@ VOut VShader(float4 position : POSITION, float2 texCoord : TEXCOORD, float3 norm
 	VOut output;
 
 	output.position = mul(position, projection);
-	output.color = float4(0.8, 0.2, 0.3, 1.0);
+	output.uv = texCoord;
 
 	return output;
 }
 
 
-float4 PShader(float4 position : SV_POSITION, float4 color : COLOR) : SV_TARGET
+Texture2D tex;
+
+SamplerState splr;
+
+float4 PShader(float4 position : SV_POSITION, float2 uv : TEXCOORD) : SV_TARGET
 {
-	return color;
+	return tex.Sample(splr, uv);
 }

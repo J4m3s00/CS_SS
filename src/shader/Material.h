@@ -31,4 +31,5 @@ private:
 	ConstantBuffer* fpCbufData;
 
 	DXBuffer* fpConstantBuffer;
+	DXTexture* fpTexture;
 };
