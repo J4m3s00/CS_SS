@@ -15,14 +15,17 @@ protected:
 
 class MaterialBasic : public Material
 {
-private:
+public:
 	struct ConstantBuffer
 	{
 		DirectX::XMMATRIX fProjectionMatrix;
+		DirectX::XMMATRIX fModelMatrix;
 	};
 public:
 	MaterialBasic();
 	~MaterialBasic();
+
+	ConstantBuffer* GetConstantBuffer() { return fpCbufData; }
 
 	virtual ID3D11InputLayout* GetLayout() const { return fpLayout; }
 	virtual void Bind() override;
