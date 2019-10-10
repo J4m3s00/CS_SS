@@ -14,7 +14,7 @@
 #include "graphics/Window.h"
 #include "graphics/DirectX/DXContext.h"
 #include "graphics/DirectX/DXBuffer.h"
+#include "graphics/DirectX/DXTexture.h"
 #include "shader/Shader.h"
 #include "shader/Material.h"
 #include "graphics/Mesh.h"
-#include "graphics/DirectX/DXTexture.h"

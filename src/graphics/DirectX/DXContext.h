@@ -25,6 +25,7 @@ private:
 	ID3D11Device* fpDevice = nullptr;
 	ID3D11DeviceContext* fpDeviceContext = nullptr;
 	ID3D11RenderTargetView* fpBackBuffer = nullptr;
+	ID3D11SamplerState* fpSampler = nullptr;
 public:
 	static DXContext sInstance;
 };

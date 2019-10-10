@@ -11,10 +11,10 @@ int CALLBACK WinMain(_In_ HINSTANCE hInstace, _In_opt_ HINSTANCE hPrevInstace, _
 
 	std::vector<Mesh::Vertex> vertices =
 	{
-		{-0.5f, -0.5f, 1.0f},
-		{-0.5f,  0.5f, 1.0f},
-		{ 0.5f,  0.5f, 1.0f},
-		{ 0.5f, -0.5f, 1.0f},
+		{-0.5f, -0.5f, 1.0f, 1, 1},
+		{-0.5f,  0.5f, 1.0f, 1, 0},
+		{ 0.5f,  0.5f, 1.0f, 0, 0},
+		{ 0.5f, -0.5f, 1.0f, 0, 1},
 	};
 
 	std::vector<USHORT> indices =
