@@ -76,7 +76,7 @@ void DXContext::Init(const Window& wnd)
 	sInstance.fpDevice->CreateTexture2D(&descDepth, 0, &pDepthStencil);
 
 	D3D11_DEPTH_STENCIL_VIEW_DESC descDSV = {};
-	descDSV.Format = DXGI_FORMAT_D32_FLOAT;
+	descDSV.Format = DXGI_FORMAT_D32_FLOAT_S8X24_UINT;
 	descDSV.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
 	descDSV.Texture2D.MipSlice = 0;
 
