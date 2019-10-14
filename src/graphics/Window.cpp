@@ -1,6 +1,7 @@
 #include <prefix.h>
 
 Window::WindowClass Window::WindowClass::sWndClass;
+Window* Window::sInstance = nullptr;
 
 Window::WindowClass::WindowClass()
 	: fHInstance(GetModuleHandle(nullptr))
@@ -9,7 +10,7 @@ Window::WindowClass::WindowClass()
 
 	wc.cbSize = sizeof(wc);
 	wc.style = CS_OWNDC;
-	wc.lpfnWndProc = Window::HandleMsgSetup;
+	wc.lpfnWndProc = Window::HandleMsgThunk;
 	wc.cbClsExtra = 0;
 	wc.cbWndExtra = 0;
 	wc.hInstance = GetInstance();
@@ -41,6 +42,7 @@ HINSTANCE Window::WindowClass::GetInstance() noexcept
 Window::Window(unsigned int width, unsigned int height, const std::string& title)
 	: fWidth(width), fHeight(height)
 {
+	sInstance = this;
 	RECT wr;
 	wr.left = 0;
 	wr.right = width;
@@ -62,28 +64,10 @@ Window::~Window()
 	DestroyWindow(fHwnd);
 }
 
-LRESULT CALLBACK Window::HandleMsgSetup(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
-{
-	if (msg == WM_NCCREATE)
-	{
-		const CREATESTRUCTW* const pCreate = reinterpret_cast<CREATESTRUCTW*>(lParam);
-		Window* const pWnd = static_cast<Window*>(pCreate->lpCreateParams);
-
-		SetWindowLongPtr(hWnd, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(pWnd));
-
-		SetWindowLongPtr(hWnd, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(&Window::HandleMsgThunk));
-
-		return pWnd->HandleMsg(hWnd, msg, wParam, lParam);
-	}
-	return DefWindowProc(hWnd, msg, wParam, lParam);
-}
-
 
 LRESULT CALLBACK Window::HandleMsgThunk(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
-	Window* const pWnd = reinterpret_cast<Window*>(GetWindowLongPtr(hWnd, GWLP_USERDATA));
-
-	return pWnd->HandleMsg(hWnd, msg, wParam, lParam);
+	return sInstance->HandleMsg(hWnd, msg, wParam, lParam);
 }
 
 LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
@@ -93,6 +77,17 @@ LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	case WM_CLOSE:
 		PostQuitMessage(0);
 		break;
+	case WM_SYSKEYDOWN:
+	case WM_KEYDOWN:
+	case WM_SYSKEYUP:
+	case WM_KEYUP:
+		fKeyboard.SetKeyState(lParam, wParam, msg);
+		break;
 	}
 	return DefWindowProc(hWnd, msg, wParam, lParam);
+}
+
+void Window::AddKeyCallback(FnKeyCallback callback)
+{
+	fKeyboard.AddKeyCallack(callback);
 }

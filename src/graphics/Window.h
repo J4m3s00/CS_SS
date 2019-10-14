@@ -25,13 +25,17 @@ public:
 	HWND GetHandle() const { return fHwnd; }
 	int GetWidth() const { return fWidth; }
 	int GetHeight() const { return fHeight; }
+
+	void AddKeyCallback(FnKeyCallback callback);
 private:
-	static LRESULT CALLBACK HandleMsgSetup(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam); 
 	static LRESULT CALLBACK HandleMsgThunk(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 	LRESULT HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 private:
 	int fWidth;
 	int fHeight;
 	HWND fHwnd;
+	Keyboard fKeyboard;
+public:
+	static Window* sInstance;
 };
 
