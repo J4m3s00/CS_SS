@@ -2,9 +2,44 @@
 #include <iostream>
 
 
+static void keyCallback(int key, bool down, bool repeat)
+{
+	
+}
+
+
 int CALLBACK WinMain(_In_ HINSTANCE hInstace, _In_opt_ HINSTANCE hPrevInstace, _In_ LPSTR lpCmdLine, _In_ int nCmdShow)
 {
+#if _DEBUG
+	AllocConsole();
+
+	// Get STDOUT handle
+	HANDLE ConsoleOutput = GetStdHandle(STD_OUTPUT_HANDLE);
+	int SystemOutput = _open_osfhandle(intptr_t(ConsoleOutput), _O_TEXT);
+	FILE* COutputHandle = _fdopen(SystemOutput, "w");
+
+	// Get STDERR handle
+	HANDLE ConsoleError = GetStdHandle(STD_ERROR_HANDLE);
+	int SystemError = _open_osfhandle(intptr_t(ConsoleError), _O_TEXT);
+	FILE* CErrorHandle = _fdopen(SystemError, "w");
+
+	// Get STDIN handle
+	HANDLE ConsoleInput = GetStdHandle(STD_INPUT_HANDLE);
+	int SystemInput = _open_osfhandle(intptr_t(ConsoleInput), _O_TEXT);
+	FILE* CInputHandle = _fdopen(SystemInput, "r");
+
+	//make cout, wcout, cin, wcin, wcerr, cerr, wclog and clog point to console as well
+	std::ios::sync_with_stdio(true);
+
+	// Redirect the CRT standard input, output, and error handles to the console
+	freopen_s(&CInputHandle, "CONIN$", "r", stdin);
+	freopen_s(&COutputHandle, "CONOUT$", "w", stdout);
+	freopen_s(&CErrorHandle, "CONOUT$", "w", stderr);
+#endif
+
 	Window* window = new Window(1270, 720, "Hello World");
+
+	window->AddKeyCallback(keyCallback);
 
 	MaterialBasic mat;
 	MaterialBasic::ConstantBuffer* pMaterialBuffer = mat.GetConstantBuffer();
@@ -72,6 +107,8 @@ int CALLBACK WinMain(_In_ HINSTANCE hInstace, _In_opt_ HINSTANCE hPrevInstace, _
 	Timer t;
 
 	float x = 0;
+	float y = 0;
+	const float speed = 1;
 
 	while (TRUE)
 	{
@@ -87,8 +124,7 @@ int CALLBACK WinMain(_In_ HINSTANCE hInstace, _In_opt_ HINSTANCE hPrevInstace, _
 			static float delta = 0.0f;
 			delta = t.Reset();
 
-			//x = sinf(delta / 100) * 10000;
-			x += delta / 1;
+			x += 2 * delta;
 
 			pMaterialBuffer->fModelMatrix = DirectX::XMMatrixTranspose(DirectX::XMMatrixRotationY(x) * DirectX::XMMatrixTranslation(0, 0, 2));
 
@@ -105,6 +141,15 @@ int CALLBACK WinMain(_In_ HINSTANCE hInstace, _In_opt_ HINSTANCE hPrevInstace, _
 			DXContext::sInstance.Present();
 		}
 	}
+
+#ifdef _DEBUG
+	std::wcout.clear();
+	std::cout.clear();
+	std::wcerr.clear();
+	std::cerr.clear();
+	std::wcin.clear();
+	std::cin.clear();
+#endif
 
 	return msg.wParam;
 }

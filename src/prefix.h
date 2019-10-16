@@ -6,14 +6,21 @@
 #include <DirectXMath.h>
 #include <Windows.h>
 
+#ifdef _DEBUG
+#include <io.h>
+#include <fcntl.h>
+#endif
+
 #include <chrono>
 
 #include <string>
 #include <vector>
+#include <functional>
 
 #include <FreeImage.h>
 
 #include "util/Timer.h"
+#include "input/Input.h"
 #include "graphics/Window.h"
 #include "graphics/DirectX/DXContext.h"
 #include "graphics/DirectX/DXBuffer.h"
