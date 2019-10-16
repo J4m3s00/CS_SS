@@ -83,6 +83,17 @@ LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	case WM_KEYUP:
 		fKeyboard.SetKeyState(lParam, wParam, msg);
 		break;
+	case WM_RBUTTONDOWN:
+	case WM_RBUTTONUP:
+	case WM_LBUTTONDOWN:
+	case WM_LBUTTONUP:
+	case WM_MBUTTONDOWN:
+	case WM_MBUTTONUP:
+		fMouse.SetMouseState(msg, GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam));
+		break;
+	case WM_MOUSEMOVE:
+		fMouse.SetMouseMove(msg, wParam, GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam));
+		break;
 	}
 	return DefWindowProc(hWnd, msg, wParam, lParam);
 }
@@ -90,4 +101,14 @@ LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 void Window::AddKeyCallback(FnKeyCallback callback)
 {
 	fKeyboard.AddKeyCallack(callback);
+}
+
+void Window::AddMouseMoveCallback(FnMouseMoveCallback callback)
+{
+	fMouse.AddMouseMoveCallback(callback);
+}
+
+void Window::AddMouseCallback(FnMouseCallback callback)
+{
+	fMouse.AddMouseCallback(callback);
 }

@@ -1,6 +1,21 @@
 #include "prefix.h"
 #include <iostream>
 
+static void mouseMoveCallback(short x, short y, unsigned char buttons, short deltaX, short deltaY)
+{
+	if (buttons & (MouseButtons::MIDDLE))
+	{
+		printf("Left and right dragged xPos: %d, yPos: %d, Deltas:(%d, %d)\n", x, y, deltaX, deltaY);
+	}
+}
+
+static void mouseCallback(short x, short y, unsigned char button, bool down)
+{
+	if (button == MouseButtons::LEFT && down)
+	{
+		printf("Mouse left pressed\n");
+	}
+}
 
 static void keyCallback(int key, bool down, bool repeat)
 {
@@ -40,6 +55,8 @@ int CALLBACK WinMain(_In_ HINSTANCE hInstace, _In_opt_ HINSTANCE hPrevInstace, _
 	Window* window = new Window(1270, 720, "Hello World");
 
 	window->AddKeyCallback(keyCallback);
+	Window::sInstance->AddMouseMoveCallback(mouseMoveCallback);
+	Window::sInstance->AddMouseCallback(mouseCallback);
 
 	MaterialBasic mat;
 	MaterialBasic::ConstantBuffer* pMaterialBuffer = mat.GetConstantBuffer();

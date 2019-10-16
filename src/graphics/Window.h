@@ -27,6 +27,8 @@ public:
 	int GetHeight() const { return fHeight; }
 
 	void AddKeyCallback(FnKeyCallback callback);
+	void AddMouseCallback(FnMouseCallback callback);
+	void AddMouseMoveCallback(FnMouseMoveCallback callback);
 private:
 	static LRESULT CALLBACK HandleMsgThunk(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 	LRESULT HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
@@ -35,6 +37,7 @@ private:
 	int fHeight;
 	HWND fHwnd;
 	Keyboard fKeyboard;
+	Mouse fMouse;
 public:
 	static Window* sInstance;
 };

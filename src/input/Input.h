@@ -1,6 +1,15 @@
 #pragma once
 
 typedef std::function<void(int, bool, bool)> FnKeyCallback;
+typedef std::function<void(short, short, unsigned char, bool)> FnMouseCallback;
+typedef std::function<void(short, short, unsigned char, short, short)> FnMouseMoveCallback;
+
+enum MouseButtons : unsigned char
+{
+	LEFT = (1 << 0),
+	RIGHT = (1 << 1),
+	MIDDLE = (1 << 2)
+};
 
 class Keyboard
 {
@@ -8,18 +17,25 @@ class Keyboard
 public:
 	Keyboard();
 
-	static bool IsKeyDown(int key);
-	static bool IsKeyPressed(int key);
 private:
 	void SetKeyState(int flags, int key, unsigned int message);
 	void AddKeyCallack(FnKeyCallback callback);
 private:
-	static constexpr int nKeyCount = 256;
-	static bool sKeyStates[nKeyCount];
 	std::vector<FnKeyCallback> fCallbacks;
 };
 
 class Mouse
 {
-
+	friend class Window;
+public:
+private:
+	void SetMouseState(UINT message, short xPos, short yPos);
+	void SetMouseMove(UINT msg, WPARAM wParam, short xPos, short yPos);
+	void AddMouseCallback(FnMouseCallback callback);
+	void AddMouseMoveCallback(FnMouseMoveCallback callback);
+private:
+	short fXPos;
+	short fYPos;
+	std::vector<FnMouseCallback> fMouseCallbacks;
+	std::vector<FnMouseMoveCallback> fMouseMoveCallbacks;
 };
