@@ -162,6 +162,7 @@
     <ClCompile Include="src\util\Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\game\Camera.h" />
     <ClInclude Include="src\graphics\DirectX\DXBuffer.h" />
     <ClInclude Include="src\graphics\DirectX\DXContext.h" />
     <ClInclude Include="src\graphics\DirectX\DXTexture.h" />
