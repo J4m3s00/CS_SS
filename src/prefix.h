@@ -5,6 +5,7 @@
 #include <D3DX10.h>
 #include <DirectXMath.h>
 #include <Windows.h>
+#include <windowsx.h>
 
 #ifdef _DEBUG
 #include <io.h>
