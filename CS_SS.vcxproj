@@ -146,6 +146,7 @@
     </FxCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\game\Camera.cpp" />
     <ClCompile Include="src\graphics\DirectX\DXBuffer.cpp" />
     <ClCompile Include="src\graphics\DirectX\DXContext.cpp" />
     <ClCompile Include="src\graphics\DirectX\DXTexture.cpp" />
