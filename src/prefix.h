@@ -29,3 +29,5 @@
 #include "shader/Shader.h"
 #include "shader/Material.h"
 #include "graphics/Mesh.h"
+
+#include "game/Camera.h"
