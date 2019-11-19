@@ -58,6 +58,17 @@ int CALLBACK WinMain(_In_ HINSTANCE hInstace, _In_opt_ HINSTANCE hPrevInstace, _
 	Window::sInstance->AddMouseMoveCallback(mouseMoveCallback);
 	Window::sInstance->AddMouseCallback(mouseCallback);
 
+	IMGUI_CHECKVERSION();
+	ImGui::CreateContext();
+	ImGuiIO& io = ImGui::GetIO(); (void)io;
+
+	ImGui::StyleColorsDark();
+	ImGui_ImplWin32_Init(window->GetHandle());
+	ImGui_ImplDX11_Init(DXContext::sInstance.GetDevice(), DXContext::sInstance.GetDeviceContext());
+
+
+	
+
 	MaterialBasic mat;
 	MaterialBasic::ConstantBuffer* pMaterialBuffer = mat.GetConstantBuffer();
 	pMaterialBuffer->fModelMatrix = DirectX::XMMatrixTranspose(DirectX::XMMatrixRotationY(0.0f) * DirectX::XMMatrixTranslation(0, 0, 0));
@@ -151,9 +162,28 @@ int CALLBACK WinMain(_In_ HINSTANCE hInstace, _In_opt_ HINSTANCE hPrevInstace, _
 			mat.Bind();
 			m.Draw();
 
+			ImGui_ImplDX11_NewFrame();
+			ImGui_ImplWin32_NewFrame();
+			ImGui::NewFrame();
+			//ImGui
+
+
+			ImGui::Begin("HelloWorld");
+
+			ImGui::End();
+
+
+			////////////
+			ImGui::Render();
+			ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+
 			DXContext::sInstance.Present();
 		}
 	}
+
+	ImGui_ImplDX11_Shutdown();
+	ImGui_ImplWin32_Shutdown();
+	ImGui::DestroyContext();
 
 #ifdef _DEBUG
 	std::wcout.clear();

@@ -12,6 +12,10 @@
 #include <fcntl.h>
 #endif
 
+#include "../imgui/imgui.h"
+#include "../imgui/examples/imgui_impl_dx11.h"
+#include "../imgui/examples/imgui_impl_win32.h"
+
 #include <chrono>
 
 #include <string>
