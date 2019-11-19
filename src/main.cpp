@@ -148,11 +148,7 @@ int CALLBACK WinMain(_In_ HINSTANCE hInstace, _In_opt_ HINSTANCE hPrevInstace, _
 			DXContext::sInstance.Clear();
 
 
-			//Bind method
-			///////////////////////////////////////////////////////////////
-			//Material
 			mat.Bind();
-
 			m.Draw();
 
 			DXContext::sInstance.Present();
