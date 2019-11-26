@@ -33,7 +33,6 @@ typedef unsigned int UINT;
 #endif
 
 
-#include "util/MathHelper.h"
 #include "util/Timer.h"
 #include "input/Input.h"
 #include "graphics/Window.h"
