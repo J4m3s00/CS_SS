@@ -42,6 +42,7 @@ void DXContext::Init(const Window& wnd)
 		NULL,
 		&sInstance.fpDeviceContext);
 
+
 	//Render Target
 	///////////////////////////////////////////////////////////////////////
 	ID3D11Texture2D* pBackBuffer;
@@ -68,7 +69,7 @@ void DXContext::Init(const Window& wnd)
 	descDepth.Height = wnd.GetHeight();
 	descDepth.MipLevels = 1;
 	descDepth.ArraySize = 1;
-	descDepth.Format = DXGI_FORMAT_D32_FLOAT;
+	descDepth.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
 	descDepth.SampleDesc.Count = 1;
 	descDepth.SampleDesc.Quality = 0;
 	descDepth.Usage = D3D11_USAGE_DEFAULT;
