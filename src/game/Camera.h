@@ -17,8 +17,12 @@ public:
 	virtual const DirectX::XMMATRIX& GetViewMatrix() const override;
 	virtual void Update(float delta) override;
 private:
+	void UpdateViewMatrix();
+private:
 	DirectX::XMMATRIX fViewMatrix;
 
 	DirectX::XMVECTOR fPosition;
 	DirectX::XMVECTOR fRotation;
+
+	bool fDirty;
 };
