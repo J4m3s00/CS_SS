@@ -18,8 +18,8 @@ class MaterialBasic : public Material
 public:
 	struct ConstantBuffer
 	{
-		DirectX::XMMATRIX fProjectionMatrix;
-		DirectX::XMMATRIX fModelMatrix;
+		glm::mat4 fProjectionMatrix;
+		glm::mat4 fModelMatrix;
 	};
 public:
 	MaterialBasic();

@@ -5,7 +5,8 @@ typedef unsigned int UINT;
 #include <d3d11.h>
 #include <D3DX11.h>
 #include <D3DX10.h>
-#include <DirectXMath.h>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 #include <Windows.h>
 #include <windowsx.h>
 

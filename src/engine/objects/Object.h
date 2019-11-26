@@ -11,7 +11,7 @@ private:
 class GameObject : public Object
 {
 public:
-	GameObject(const std::string& name, const DirectX::XMFLOAT3& position = { 0.0f, 0.0f, 0.0f }, const DirectX::XMFLOAT3& rotation = {0.0f, 0.0f, 0.0f});
+	GameObject(const std::string& name, const glm::vec3& position = { 0.0f, 0.0f, 0.0f }, const glm::vec3& rotation = {0.0f, 0.0f, 0.0f});
 
 	virtual void OnLoad();
 	virtual void OnUnload();
@@ -19,6 +19,6 @@ public:
 	virtual void OnStart();
 	virtual void OnStop();
 protected:
-	DirectX::XMFLOAT3 fPosition;
-	DirectX::XMFLOAT3 fRotation;
+	glm::vec3 fPosition;
+	glm::vec3 fRotation;
 };
