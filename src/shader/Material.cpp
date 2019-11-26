@@ -43,7 +43,7 @@ MaterialBasic::MaterialBasic()
 
 
 	fpCbufData = new ConstantBuffer();
-	fpCbufData->fProjectionMatrix = glm::perspectiveLH(60.0f, 16.0f / 9.0f, 0.001f, 10000.0f);
+	fpCbufData->fProjectionMatrix = glm::perspectiveLH(60.0f, 1.0f / 2.0f, 0.001f, 10000.0f);
 	fpCbufData->fProjectionMatrix = glm::transpose(fpCbufData->fProjectionMatrix);
 
 	fpConstantBuffer = new DXBuffer(BUFFER_TYPE_CONSTANT_BUFFER, (const void*)fpCbufData, sizeof(ConstantBuffer), 1);
