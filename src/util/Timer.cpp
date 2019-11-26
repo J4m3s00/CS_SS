@@ -14,3 +14,9 @@ float Timer::Reset()
 	const duration<float> frameTime = last - old;
 	return frameTime.count();
 }
+
+float Timer::GetDuration()
+{
+	const duration<float> result = steady_clock::now() - last;
+	return result.count();
+}

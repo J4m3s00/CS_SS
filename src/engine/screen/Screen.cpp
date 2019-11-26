@@ -62,3 +62,9 @@ void GameScreen::Update(float delta)
 	for (GameObject* go : fGameObjectList)
 		go->OnUpdate(delta);
 }
+void GameScreen::RenderImGui()
+{
+	OnRenderImGui();
+	for (GameObject* go : fGameObjectList)
+		go->OnRenderImGui();
+}
