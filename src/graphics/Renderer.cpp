@@ -2,7 +2,7 @@
 
 namespace Renderer {
 
-	void Submit(Mesh* pMesh, BasicMaterial* pMaterial, const glm::vec3& position, const glm::vec3& rotation, const glm::vec3& scale)
+	void Submit(Mesh* pMesh, MaterialBasic* pMaterial, const glm::vec3& position, const glm::vec3& rotation, const glm::vec3& scale)
 	{
 		if (pMaterial && pMesh)
 		{
