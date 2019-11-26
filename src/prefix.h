@@ -42,6 +42,7 @@ typedef unsigned int UINT;
 #include "shader/Shader.h"
 #include "shader/Material.h"
 #include "graphics/Mesh.h"
+#include "graphics/Renderer.h"
 
 #include "engine/objects/Object.h"
 #include "engine/screen/Screen.h"
