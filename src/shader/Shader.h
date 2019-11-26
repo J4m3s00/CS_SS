@@ -8,6 +8,11 @@ public:
 	{
 		MessageBox(NULL, "Unknown Shader Type!", "Shader ERROR!", MB_OK | MB_ICONEXCLAMATION);
 	}
+
+	Shader(const std::string& source, const std::string& name)
+	{
+		MessageBox(NULL, "Unknown Shader Type!", "Shader ERROR!", MB_OK | MB_ICONEXCLAMATION);
+	}
 	~Shader() {}
 
 	void Bind() {}
@@ -21,6 +26,12 @@ public:
 	Shader(const std::string& path)
 	{
 		D3DX11CompileFromFile(path.c_str(), 0, 0, "VShader", "vs_4_0", 0, 0, 0, &fpBlob, 0, 0);
+		DXContext::sInstance.GetDevice()->CreateVertexShader(fpBlob->GetBufferPointer(), fpBlob->GetBufferSize(), NULL, &fpShader);
+	}
+
+	Shader(const std::string& source, const std::string& name)
+	{
+		D3DX11CompileFromMemory(source.c_str(), source.size(), name.c_str(), 0, 0, "VShader", "vs_4_0", 0, 0, 0, &fpBlob, 0, 0);
 		DXContext::sInstance.GetDevice()->CreateVertexShader(fpBlob->GetBufferPointer(), fpBlob->GetBufferSize(), NULL, &fpShader);
 	}
 
@@ -47,6 +58,12 @@ public:
 	Shader(const std::string& path)
 	{
 		D3DX11CompileFromFile(path.c_str() , 0, 0, "PShader", "ps_4_0", 0, 0, 0, &fpBlob, 0, 0);
+		DXContext::sInstance.GetDevice()->CreatePixelShader(fpBlob->GetBufferPointer(), fpBlob->GetBufferSize(), NULL, &fpShader);
+	}
+
+	Shader(const std::string& source, const std::string& name)
+	{
+		D3DX11CompileFromMemory(source.c_str(), source.size(), name.c_str(), 0, 0, "PShader", "ps_4_0", 0, 0, 0, &fpBlob, 0, 0);
 		DXContext::sInstance.GetDevice()->CreatePixelShader(fpBlob->GetBufferPointer(), fpBlob->GetBufferSize(), NULL, &fpShader);
 	}
 

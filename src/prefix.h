@@ -1,5 +1,7 @@
 #pragma once
 
+typedef unsigned int UINT;
+
 #include <d3d11.h>
 #include <D3DX11.h>
 #include <D3DX10.h>
@@ -22,7 +24,9 @@
 #include <vector>
 #include <functional>
 
+#ifndef INCLUDE_FROM_GAME
 #include <FreeImage.h>
+#endif
 
 #include "util/Timer.h"
 #include "input/Input.h"
@@ -33,3 +37,7 @@
 #include "shader/Shader.h"
 #include "shader/Material.h"
 #include "graphics/Mesh.h"
+
+#include "engine/objects/Object.h"
+#include "engine/screen/Screen.h"
+#include "engine/Application.h"

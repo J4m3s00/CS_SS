@@ -39,13 +39,13 @@
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -71,9 +71,11 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>$(DXSDK_DIR)Include;$(SolutionDir)src;$(SolutionDir)imgui;$(IncludePath)</IncludePath>
+    <OutDir>$(SolutionDir)\lib\$(Configuration)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>$(DXSDK_DIR)Include;$(SolutionDir)src;$(SolutionDir)imgui;$(IncludePath)</IncludePath>
+    <OutDir>$(SolutionDir)\lib\$(Configuration)\</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -96,6 +98,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>prefix.h</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\FreeImage;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ProgramDataBaseFileName>$(IntDir)pdb\$(ProjectName).pdb</ProgramDataBaseFileName>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -105,6 +108,12 @@
     <FxCompile>
       <ShaderType>RootSignature</ShaderType>
     </FxCompile>
+    <Lib>
+      <AdditionalDependencies>d3d11.lib;d3dx11.lib;d3dx10.lib;FreeImage.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
+    <Lib>
+      <AdditionalLibraryDirectories>$(DXSDK_DIR)Lib\$(Platform);$(SolutionDir)Dependencies\FreeImage;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -133,6 +142,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>prefix.h</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\FreeImage;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ProgramDataBaseFileName>$(IntDir)pdb\$(ProjectName).pdb</ProgramDataBaseFileName>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -144,14 +154,22 @@
     <FxCompile>
       <ShaderType>RootSignature</ShaderType>
     </FxCompile>
+    <Lib>
+      <AdditionalDependencies>d3d11.lib;d3dx11.lib;d3dx10.lib;FreeImage.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
+    <Lib>
+      <AdditionalLibraryDirectories>$(DXSDK_DIR)Lib\$(Platform);$(SolutionDir)Dependencies\FreeImage;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\engine\Application.cpp" />
+    <ClCompile Include="src\engine\objects\Object.cpp" />
+    <ClCompile Include="src\engine\screen\Screen.cpp" />
     <ClCompile Include="src\graphics\DirectX\DXBuffer.cpp" />
     <ClCompile Include="src\graphics\DirectX\DXContext.cpp" />
     <ClCompile Include="src\graphics\DirectX\DXTexture.cpp" />
     <ClCompile Include="src\graphics\Mesh.cpp" />
     <ClCompile Include="src\input\Input.cpp" />
-    <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\graphics\Window.cpp" />
     <ClCompile Include="src\prefix.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -162,6 +180,10 @@
     <ClCompile Include="src\util\Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Engine.h" />
+    <ClInclude Include="src\engine\Application.h" />
+    <ClInclude Include="src\engine\objects\Object.h" />
+    <ClInclude Include="src\engine\screen\Screen.h" />
     <ClInclude Include="src\graphics\DirectX\DXBuffer.h" />
     <ClInclude Include="src\graphics\DirectX\DXContext.h" />
     <ClInclude Include="src\graphics\DirectX\DXTexture.h" />

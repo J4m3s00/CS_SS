@@ -2,8 +2,15 @@
 
 Material::Material(const std::string& name)
 {
-	fpVertexShader = new Shader<ID3D11VertexShader>("src/shader/" + name + ".hlsl");
-	fpPixelShader = new Shader<ID3D11PixelShader>("src/shader/" + name + ".hlsl");
+
+	fpVertexShader = new Shader<ID3D11VertexShader>(
+#include "Basic.hlsl"
+		, name
+		);
+
+	fpPixelShader = new Shader<ID3D11PixelShader>(
+#include "Basic.hlsl"
+		, name);
 }
 
 Material::~Material()

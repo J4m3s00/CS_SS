@@ -1,4 +1,4 @@
-struct VOut
+R"(struct VOut
 {
 	float4 position : SV_POSITION;
 	float2 uv : TEXCOLOR;
@@ -29,3 +29,4 @@ float4 PShader(float4 position : SV_POSITION, float2 uv : TEXCOORD) : SV_TARGET
 {
 	return tex.Sample(splr, uv);
 }
+)"
