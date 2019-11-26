@@ -2,11 +2,14 @@
 
 typedef unsigned int UINT;
 
+#define GLM_INLINE
+#include <math.h>
 #include <d3d11.h>
 #include <D3DX11.h>
 #include <D3DX10.h>
 #include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
+#include <glm/ext/matrix_transform.hpp>
+#include <glm/ext/matrix_clip_space.hpp>
 #include <Windows.h>
 #include <windowsx.h>
 
@@ -29,6 +32,8 @@ typedef unsigned int UINT;
 #include <FreeImage.h>
 #endif
 
+
+#include "util/MathHelper.h"
 #include "util/Timer.h"
 #include "input/Input.h"
 #include "graphics/Window.h"
