@@ -1,5 +1,7 @@
 #pragma once
 
+//TODO: Test
+
 class Timer
 {
 public:
