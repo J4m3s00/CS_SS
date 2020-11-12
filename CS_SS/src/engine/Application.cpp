@@ -22,13 +22,16 @@ void Application::Start(GameScreen* screen)
 	
 	fpCurrentScreen = screen;
 
+	fpCurrentScreen->Start();
+
 	if (!fRunning)
 		Run();
 }
 
 void Application::Init()
 {
-	fpWindow = new Window(fWidth, fHeight, fName);
+	if (!fpWindow)
+		fpWindow = new Window(fWidth, fHeight, fName);
 
 	ImGuiInit();
 

@@ -4,6 +4,7 @@ typedef unsigned int UINT;
 
 #define GLM_INLINE
 #include <math.h>
+#ifndef INCLUDE_FROM_GAME
 #include <d3d11.h>
 #include <D3DX11.h>
 #include <D3DX10.h>
@@ -12,16 +13,19 @@ typedef unsigned int UINT;
 #include <glm/ext/matrix_clip_space.hpp>
 #include <Windows.h>
 #include <windowsx.h>
+#endif
 
 #ifdef _DEBUG
 #include <io.h>
 #include <fcntl.h>
 #endif
 
+#ifndef INCLUDE_FROM_GAME
 #include "../imgui/imgui.h"
 #include "../imgui/examples/imgui_impl_dx11.h"
 #include "../imgui/examples/imgui_impl_win32.h"
 
+#endif
 #include <chrono>
 
 #include <string>
